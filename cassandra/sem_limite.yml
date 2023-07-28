@@ -1,0 +1,37 @@
+version: '3'
+
+x-cassandra-features-seed-one:
+  &cassandra-features-seed-one
+  CASSANDRA_CLUSTER_NAME: "Aging In Cassandra"
+
+services:
+  cassandra1:
+    container_name: cassandra1
+    image: cassandra:3.0.29
+    volumes:
+      - /home/monitoramento/cassandra/data1:/var/lib/cassandra
+    environment:
+      << : *cassandra-features-seed-one
+    ports:
+      - "8000:7000"
+      - "8001:7001"
+      - "8002:7199"
+      - "8003:9042"
+      - "8004:9160"
+
+  cassandra2:
+    container_name: cassandra2
+    image: cassandra:3.0.29
+    volumes:
+      - /home/monitoramento/cassandra/data2:/var/lib/cassandra
+    environment: 
+      << : *cassandra-features-seed-one
+      CASSANDRA_SEEDS: "cassandra1"
+    ports:
+      - "9000:7000"
+      - "9001:7001"
+      - "9002:7199"
+      - "9003:9042"
+      - "9004:9160"
+    depends_on:
+      - cassandra1

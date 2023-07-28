@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  mongo1:
+    hostname: mongo1
+    image: mongo:6.0.8
+    volumes:
+      - /home/monitoramento/mongodb/data1:/data/db
+    expose:
+      - 27017
+    ports:
+      - 30001:27017
+    command: mongod --replSet my-mongo-set
+
+  mongo2:
+    hostname: mongo2
+    image: mongo:6.0.8
+    volumes:
+      - /home/monitoramento/mongodb/data2:/data/db
+    expose:
+      - 27017
+    ports:
+      - 30002:27017
+    command: mongod --replSet my-mongo-set
+
+  mongoinit:
+    image: mongo:6.0.8
+    restart: "no"
+    depends_on:
+      - mongo1
+      - mongo2
+    command: >
+      mongo --host mongo1:27017 --eval 
+      '
+      db = (new Mongo("localhost:27017")).getDB("ycsb");
+      config = {
+      "_id" : "my-mongo-set",
+      "members" : [
+        {
+          "_id" : 0,
+          "host" : "mongo1:27017"
+        },
+        {
+          "_id" : 1,
+          "host" : "mongo2:27017"
+        },
+      ]
+      };
+      rs.initiate(config);
+      '      

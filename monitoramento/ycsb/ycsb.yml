@@ -1,0 +1,9 @@
+version: '3'
+  
+services: 
+  ycsb:
+    image: carlosaacavalcante/ubuntu-ycsb:1.2
+    volumes:
+      /home/monitoramento/logs:/logs
+    depends_on:
+      - cadvisor

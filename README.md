@@ -1,0 +1,1 @@
+Repositório utilizado para avaliação de desempenho com o [YCSB](https://github.com/brianfrankcooper/YCSB) utilizando o [cAdvisor](https://github.com/google/cadvisor) para pegar métricas dos containers [Docker](https://www.docker.com/).
