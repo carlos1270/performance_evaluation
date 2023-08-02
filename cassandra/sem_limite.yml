@@ -35,3 +35,37 @@ services:
       - "9004:9160"
     depends_on:
       - cassandra1
+
+  cassandra3:
+    container_name: cassandra3
+    image: cassandra:3.0.29
+    volumes:
+      - /home/monitoramento/cassandra/data3:/var/lib/cassandra
+    environment: 
+      << : *cassandra-features-seed-one
+      CASSANDRA_SEEDS: "cassandra1"
+    ports:
+      - "10000:7000"
+      - "10001:7001"
+      - "10002:7199"
+      - "10003:9042"
+      - "10004:9160"
+    depends_on:
+      - cassandra1
+
+  cassandra4:
+    container_name: cassandra4
+    image: cassandra:3.0.29
+    volumes:
+      - /home/monitoramento/cassandra/data4:/var/lib/cassandra
+    environment: 
+      << : *cassandra-features-seed-one
+      CASSANDRA_SEEDS: "cassandra1"
+    ports:
+      - "11000:7000"
+      - "11001:7001"
+      - "11002:7199"
+      - "11003:9042"
+      - "11004:9160"
+    depends_on:
+      - cassandra1

@@ -52,7 +52,7 @@ echo $cont $men $swap $disco $mpstat $net_br $net_pr $net_er $net_bt $net_pt $ne
 echo $cont $men $swap $disco $mpstat $net_br $net_pr $net_er $net_bt $net_pt $net_et $data
 
 #Frequencia de amostragem
-sleep 2
+sleep 30
 
 cont=`expr $cont + 1`
 

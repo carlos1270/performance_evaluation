@@ -2,7 +2,7 @@ version: '3'
   
 services: 
   ycsb:
-    image: carlosaacavalcante/ubuntu-ycsb:1.2
+    image: carlosaacavalcante/ubuntu-ycsb:1.3
     volumes:
       /home/monitoramento/logs:/logs
     depends_on:
