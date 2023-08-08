@@ -22,6 +22,17 @@ services:
     ports:
       - 30002:27017
     command: mongod --replSet my-mongo-set
+    
+  mongo3:
+    hostname: mongo3
+    image: mongo:6.0.8
+    volumes:
+      - /home/monitoramento/mongodb/data3:/data/db
+    expose:
+      - 27017
+    ports:
+      - 30003:27017
+    command: mongod --replSet my-mongo-set
 
   mongoinit:
     image: mongo:6.0.8
@@ -29,6 +40,7 @@ services:
     depends_on:
       - mongo1
       - mongo2
+      - mongo3
     command: >
       mongo --host mongo1:27017 --eval 
       '
@@ -43,6 +55,10 @@ services:
         {
           "_id" : 1,
           "host" : "mongo2:27017"
+        },
+        {
+          "_id" : 2,
+          "host" : "mongo3:27017"
         },
       ]
       };
